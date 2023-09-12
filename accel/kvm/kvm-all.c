@@ -1311,6 +1311,9 @@ static int kvm_set_memory_attributes(hwaddr start, hwaddr size, uint64_t attr)
         error_report("failed to set memory (0x%lx+%#zx) with attr 0x%lx error '%s'",
                      start, size, attr, strerror(errno));
     }
+
+    trace_kvm_set_memory_attributes(start, size, attr);
+
     return r;
 }
 
