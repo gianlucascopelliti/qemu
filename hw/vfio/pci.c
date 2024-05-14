@@ -3390,6 +3390,7 @@ static Property vfio_pci_dev_properties[] = {
     DEFINE_PROP_LINK("iommufd", VFIOPCIDevice, vbasedev.iommufd,
                      TYPE_IOMMUFD_BACKEND, IOMMUFDBackend *),
 #endif
+    DEFINE_PROP_BOOL("x-tio-pvt", VFIOPCIDevice, vbasedev.tsm_private_dma, false),
     DEFINE_PROP_END_OF_LIST(),
 };
 
