@@ -137,6 +137,7 @@ struct kvm_xen_exit {
 
 struct kvm_user_vmgexit {
 #define KVM_USER_VMGEXIT_REQ_CERTS		1
+#define KVM_USER_VMGEXIT_TIO_REQ	4
 	__u32 type; /* KVM_USER_VMGEXIT_* type */
 	union {
 		struct {
@@ -152,6 +153,10 @@ struct kvm_user_vmgexit {
 #define KVM_USER_VMGEXIT_REQ_CERTS_STATUS_DONE		1
 			__u8 status;
 		} req_certs;
+		struct {
+			__u32 guest_rid;
+			__u32 ret;
+		} tio_req;
 	};
 };
 
@@ -1168,6 +1173,21 @@ struct kvm_vfio_spapr_tce {
 	__s32	groupfd;
 	__s32	tablefd;
 };
+
+#define  KVM_DEV_VFIO_DEVICE			2
+#define   KVM_DEV_VFIO_DEVICE_TDI_BIND			1
+#define   KVM_DEV_VFIO_DEVICE_TDI_UNBIND		2
+
+/*
+ * struct kvm_vfio_tsm_bind
+ *
+ * @guest_rid: Hypervisor provided identifier used by the guest to identify the TDI in guest messages
+ * @devfd: a fd of VFIO device
+ */
+struct kvm_vfio_tsm_bind {
+	__u32 guest_rid;
+	__s32 devfd;
+} __attribute__((packed));
 
 /*
  * KVM_CREATE_VCPU receives as a parameter the vcpu slot, and returns

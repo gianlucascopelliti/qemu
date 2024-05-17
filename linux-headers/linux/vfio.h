@@ -977,6 +977,20 @@ struct vfio_device_detach_iommufd_pt {
 
 #define VFIO_DEVICE_DETACH_IOMMUFD_PT		_IO(VFIO_TYPE, VFIO_BASE + 20)
 
+
+/*
+ * struct kvm_vfio_tsm_bind
+ *
+ * @guest_rid: Hypervisor provided identifier used by the guest to identify the TDI in guest messages
+ */
+struct vfio_device_tsm_bind {
+	__u32	argsz;
+	__u32	flags;
+	__u32	guest_rid;
+} __attribute__((packed));
+
+#define VFIO_DEVICE_TSM_BIND			_IO(VFIO_TYPE, VFIO_BASE + 21)
+
 /*
  * Provide support for setting a PCI VF Token, which is used as a shared
  * secret between PF and VF drivers.  This feature may only be set on a
